@@ -1,0 +1,8 @@
+2005-07-05  Magnus Therning <magnus@therning.org>
+
+	* libkeysafe/safe.py: Fixed a bug where the ID of an entry was put in
+	instead of the user name.
+
+2005-07-04  Magnus Therning <magnus@therning.org>
+
+	* Initial release of version 0.1

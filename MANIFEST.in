@@ -1,0 +1,6 @@
+include keysafe
+include ksed
+recursive-include libkeysafe *.py
+recursive-include gui *.glade
+include ChangeLog
+include NEWS

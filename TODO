@@ -1,0 +1,14 @@
+Things I'd like to do:
+
+- Use gconf for configuration
+  - schema with defaults
+
+- Add a button to copy the user name to clipboard:
+   The steps should be
+   1. choose ID
+   2. copy user name to clipboard
+   3. enter master password
+   4. copy password to clipboard and hide window
+   5. time out and die
+
+vim: set ft=text:

@@ -1,0 +1,6 @@
+#! /usr/bin/env python
+
+import libkeysafe.edgui
+
+if __name__ == '__main__':
+    libkeysafe.edgui.main()

@@ -1,0 +1,6 @@
+#! /usr/bin/env python
+
+import libkeysafe.gui
+
+if __name__ == '__main__':
+    libkeysafe.gui.main()

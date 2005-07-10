@@ -1,0 +1,7 @@
+2005-06-05 Release of version 0.1.1
+ 
+ * Fixed bug where the ID of an entry was put in instead of the user name.
+
+2005-06-04 Release of version 0.1
+
+vim: set ft=text:

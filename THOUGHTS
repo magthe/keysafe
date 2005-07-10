@@ -1,0 +1,21 @@
+What format should the passwords be stored in?
+ 
+ I want to keep the password in memory as short a time as possible. AFAIK I
+ can't lock pages in python.
+
+ I want to be able to tell if the given KSPwd was the correct one. I.e. part
+ of the password storage must contain a known part:
+  
+  Known string (known plain text problem?)
+  Two that are the same (can be a randomized byte that's repeated)
+
+ The length of the stored password should have no relation to the length of
+ the user password. I.e. add some padding.
+
+  Should the padding be randomized?
+
+Would it be useful from the command line?
+
+ I doubt it! How do I copy the password into the other command line too?
+
+vim: set ft=text:
