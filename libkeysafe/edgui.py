@@ -5,12 +5,15 @@ import gtk, gtk.glade, gobject
 from libkeysafe import safe, cfg
 
 class MainEdGui(object):
+    __BADPWDTXT = 'Wrong master password'
+
     def __init__(self):
         object.__init__(self)
         self.__gui = gtk.glade.XML('gui/ksed.glade')
         self.__gui.signal_autoconnect(self)
         self.__populate_list()
         self.__populate_cfg()
+        self.__gui.get_widget('btnStore').set_sensitive(0)
         gtk.main()
 
     def __populate_list(self):
@@ -64,8 +67,8 @@ class MainEdGui(object):
             self.__gui.get_widget('entryPasswd1').set_text(safe.decrypt(entry[1], master_pwd))
             self.__gui.get_widget('entryPasswd2').set_text(safe.decrypt(entry[1], master_pwd))
         except safe.BadPwdException, e:
-            self.__gui.get_widget('entryPasswd1').set_text('Wrong master password')
-            self.__gui.get_widget('entryPasswd2').set_text('Wrong master password')
+            self.__gui.get_widget('entryPasswd1').set_text(self.__BADPWDTXT)
+            self.__gui.get_widget('entryPasswd2').set_text(self.__BADPWDTXT)
 
     def __clear_txt_entries(self):
         self.__gui.get_widget('entryID').set_text('')
@@ -118,6 +121,22 @@ class MainEdGui(object):
             id = model.get_value(iter, 0)
             safe.delete_entry(id)
             self.__update_list()
+
+    def on_entryPasswd1_changed(self, widget):
+        l_text = widget.get_text()
+        r_text = self.__gui.get_widget('entryPasswd2').get_text()
+        if l_text == r_text and l_text != self.__BADPWDTXT:
+            self.__gui.get_widget('btnStore').set_sensitive(1)
+        else:
+            self.__gui.get_widget('btnStore').set_sensitive(0)
+
+    def on_entryPasswd2_changed(self, widget):
+        l_text = widget.get_text()
+        r_text = self.__gui.get_widget('entryPasswd1').get_text()
+        if l_text == r_text and l_text != self.__BADPWDTXT:
+            self.__gui.get_widget('btnStore').set_sensitive(1)
+        else:
+            self.__gui.get_widget('btnStore').set_sensitive(0)
 
     def on_entryMasterPwd_changed(self, widget):
         '''@type widget: GtkEntry
