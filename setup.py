@@ -6,7 +6,7 @@ from distutils.core import setup
 #  libkeysafe/*.py -> <prefix>/lib/python<version>/site-packages/libkeysafe
 #  gui/*.glade -> <prefix>/lib/keysafe/gui
 setup(name = 'keysafe',
-        version = '0.1.1',
+        version = '0.2a',
         author = 'Magnus Therning',
         author_email = 'magnus@therning.org',
         scripts = ['keysafe', 'ksed'],
