@@ -1,6 +1,6 @@
 import os
 import os.path
-from ConfigParser import SafeConfigParser as CfgParser
+import gconf
 
 __all__ = [ \
         'get_config'
@@ -9,41 +9,45 @@ __all__ = [ \
 _config = None
 
 class _Config(object):
-    __defaults = { \
-            'safe' : os.path.join(os.getenv('HOME'), '.keysafe'),
-            'timeout' : '15000',
-            }
+    __dir = '/apps/keysafe'
+    __timeout_key = '/apps/keysafe/timeout'
+    __keysafe_key = '/apps/keysafe/keyfile'
 
-    def __init__(self, cfg_file = None):
+    def __init__(self):
         object.__init__(self)
-        self.__cfgfile = cfg_file
-        if not self.__cfgfile:
-            self.__cfg_file = os.path.join(os.getenv('HOME'), '.keysaferc')
-        self.__cfg = CfgParser(self.__defaults)
-        self.__cfg.add_section('keysafe')
-        try:
-            cfg_file = open(self.__cfg_file, 'r')
-            self.__cfg.readfp(cfg_file)
-            cfg_file.close()
-        except IOError, e:
-            pass # don't care at the moment
+        self.__timeout = 0
+        self.__keysafe = ''
+        self.client = gconf.client_get_default()
+        self.client.add_dir(self.__dir, gconf.CLIENT_PRELOAD_NONE)
+        self.client.notify_add(self.__timeout_key, self.__new_timeout)
+        self.client.notify_add(self.__keysafe_key, self.__new_keysafe)
+        self.__new_timeout(self.client)
+        self.__new_keysafe(self.client)
+
+    def __new_timeout(self, client, *args, **kwargs):
+        self.__timeout = client.get_int(self.__timeout_key)
+
+    def __new_keysafe(self, client, *args, **kwargs):
+        self.__keysafe = client.get_string(self.__keysafe_key)
 
     def __getitem__(self, name):
-        if name == 'timeout':
-            return self.__cfg.getint('keysafe', name)
+        if name == 'keyfile':
+            return self.__keysafe
+        elif name == 'timeout':
+            return self.__timeout
         else:
-            try:
-                return self.__cfg.get('keysafe', name)
-            except:
-                raise AttributeError
+            raise IndexError('Index:', name)
 
     def __setitem__(self, name, value):
-        self.__cfg.set('keysafe', name, str(value))
+        if name == 'keyfile':
+            self.client.set_string(self.__keysafe_key, value)
+        elif name == 'timeout':
+            self.client.set_int(self.__timeout_key, int(value))
+        else:
+            raise IndexError('Index: %s - %s' % (name, value))
 
     def save(self):
-        cfg_file = open(self.__cfg_file, 'w+')
-        self.__cfg.write(cfg_file)
-        cfg_file.close()
+        pass
 
 def get_config():
     global _config

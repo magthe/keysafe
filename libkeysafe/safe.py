@@ -1,3 +1,5 @@
+import os.path
+import sys
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.Util.randpool import RandomPool
@@ -52,7 +54,7 @@ def _load_safe():
     s = get_safe()
     c = cfg.get_config()
     try:
-        fd = file(c['safe'], 'r')
+        fd = file(c['keyfile'], 'r')
         s.set_entries(pickle.load(fd))
         fd.close()
     except (IOError, EOFError), e:
@@ -65,11 +67,12 @@ def save_safe():
     s = get_safe()
     c = cfg.get_config()
     try:
-        fd = file(c['safe'], 'w+')
+        fd = file(os.path.expanduser(c['keyfile']), 'w+')
         pickle.dump(s.get_entries(), fd)
         fd.close()
     except IOError, e:
         s.set_entries({})
+        raise e
     except pickle.PickleError, e:
         s.set_entries({})
         fd.close()

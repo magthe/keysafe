@@ -11,5 +11,8 @@ setup(name = 'keysafe',
         author_email = 'magnus@therning.org',
         scripts = ['keysafe', 'ksed'],
         packages = ['libkeysafe'],
-        data_files = [('lib/keysafe/gui', ['gui/keysafe.glade', 'gui/ksed.glade'])],
+        data_files = [\
+                ('lib/keysafe/gui', ['gui/keysafe.glade', 'gui/ksed.glade']),
+                ('share/gconf/schemas', ['gnome/keysafe.schemas']),
+                ],
         )

@@ -1,0 +1,28 @@
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/keysafe/timeout</key>
+      <applyto>/apps/keysafe/timeout</applyto>
+      <owner>keysafe</owner>
+      <type>int</type>
+      <default>15000</default>
+      <locale name="C">
+        <short>Milliseconds the password is available in the clipboard.</short>
+        <long>The time, in milliseconds, the password is available in the clipboard.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/keysafe/keyfile</key>
+      <applyto>/apps/keysafe/keyfile</applyto>
+      <owner>keysafe</owner>
+      <type>string</type>
+      <default>~/.keysafe</default>
+      <locale name="C">
+        <short>Filename for the keysafe.</short>
+        <long>The name of the file where the passwords will be stored.</long>
+      </locale>
+    </schema>
+  </schemalist>
+
+  <!-- vim: set ft=xml: -->
+</gconfschemafile>

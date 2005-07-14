@@ -41,6 +41,8 @@ using Python code. I'd much rather see distutils support rewriting similar to
 what Autoconf does. For now it's left as an exercise for packagers and
 daredevils installing from source.
 
+INSTALL contains more details of what is needed.
+
 Left to do
 ==========
 

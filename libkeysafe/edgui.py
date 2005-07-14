@@ -42,12 +42,12 @@ class MainEdGui(object):
 
     def __populate_cfg(self):
         c = cfg.get_config()
-        self.__gui.get_widget('entrySafe').set_text(c['safe'])
+        self.__gui.get_widget('entrySafe').set_text(c['keyfile'])
         self.__gui.get_widget('entryTimeout').set_text(str(c['timeout']))
 
     def __save_cfg_values(self):
         c = cfg.get_config()
-        c['safe'] = self.__gui.get_widget('entrySafe').get_text()
+        c['keyfile'] = self.__gui.get_widget('entrySafe').get_text()
         c['timeout'] = self.__gui.get_widget('entryTimeout').get_text()
         c.save()
 
