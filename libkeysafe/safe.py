@@ -54,11 +54,12 @@ def _load_safe():
     s = get_safe()
     c = cfg.get_config()
     try:
-        fd = file(c['keyfile'], 'r')
+        fd = file(os.path.expanduser(c['keyfile']), 'r')
         s.set_entries(pickle.load(fd))
         fd.close()
     except (IOError, EOFError), e:
         s.set_entries({})
+        raise e
     except pickle.PickleError, e:
         s.set_entries({})
         fd.close()
