@@ -17,8 +17,11 @@ class MainWinCtrl(object):
         else:
             return None, None
 
-    def copy_to_clipb(self, s, k):
+    def copy_text_to_clipboard(self, t):
+        gtk.clipboard_get('CLIPBOARD').set_text(t)
+
+    def copy_pw_to_clipboard(self, s, k):
         entry = safe.get_entry(s)
-        cb = gtk.clipboard_get("CLIPBOARD")
+        cb = gtk.clipboard_get('CLIPBOARD')
         # let the caller handle any exception due to bad password
         cb.set_text(safe.decrypt(entry[1], k))
