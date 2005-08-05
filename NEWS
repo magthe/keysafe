@@ -1,3 +1,6 @@
+0.3.1: 2005-08-06
+        Build fixes.
+
 0.3: 2005-08-05
         Added button to copy username to clipboard.
         Improved build system.

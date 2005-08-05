@@ -1,3 +1,8 @@
+2005-08-06  Magnus Therning <magnus@therning.org>
+
+	* Makefile.am: Use explicit directories for sources and targets.
+	Building in current dir should be possible.
+
 2005-08-05  Magnus Therning <magnus@therning.org>
 
 	* MANIFEST.in, setup.py: No longer using distutils to build.

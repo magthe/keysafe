@@ -1,7 +1,7 @@
 AC_INIT(libkeysafe/safe.py)
 
 dnl AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(keysafe, 0.3)
+AM_INIT_AUTOMAKE(keysafe, 0.3.1)
 
 AM_MAINTAINER_MODE
 

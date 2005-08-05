@@ -26,34 +26,39 @@ edit = sed \
        -e 's,@KEYSAFE_GLADE_PATH@,$(guidir),g'
 
 keysafe: $(srcdir)/keysafe.in Makefile
-	rm -f keysafe keysafe.tmp
-	$(edit) $(srcdir)/keysafe.in > keysafe.tmp
-	chmod +x keysafe.tmp
-	mv keysafe.tmp keysafe
+	rm -f $(top_builddir)/keysafe $(top_builddir)/keysafe.tmp
+	$(edit) $(srcdir)/keysafe.in > $(top_builddir)/keysafe.tmp
+	chmod +x $(top_builddir)/keysafe.tmp
+	mv $(top_builddir)/keysafe.tmp $(top_builddir)/keysafe
 
 ksed: $(srcdir)/ksed.in Makefile
-	rm -f ksed ksed.tmp
-	$(edit) $(srcdir)/ksed.in > ksed.tmp
-	chmod +x ksed.tmp
-	mv ksed.tmp ksed
+	rm -f $(top_builddir)/ksed $(top_builddir)/ksed.tmp
+	$(edit) $(srcdir)/ksed.in > $(top_builddir)/ksed.tmp
+	chmod +x $(top_builddir)/ksed.tmp
+	mv $(top_builddir)/ksed.tmp $(top_builddir)/ksed
 
 libkeysafe/__init__.py: $(srcdir)/libkeysafe/__init__.py.in Makefile
-	rm -rf libkeysafe
-	mkdir libkeysafe
-	rm -f libkeysafe/__init__.py libkeysafe/__init__.py.tmp
-	$(edit) $(srcdir)/libkeysafe/__init__.py.in > libkeysafe/__init__.py.tmp
-	mv libkeysafe/__init__.py.tmp libkeysafe/__init__.py
+	[ -d $(top_builddir)/libkeysafe ] || mkdir libkeysafe
+	rm -f $(top_builddir)/libkeysafe/__init__.py \
+		$(top_builddir)/libkeysafe/__init__.py.tmp
+	$(edit) $(srcdir)/libkeysafe/__init__.py.in > \
+		$(top_builddir)/libkeysafe/__init__.py.tmp
+	mv $(top_builddir)/libkeysafe/__init__.py.tmp \
+		$(top_builddir)/libkeysafe/__init__.py
 
 # dist
-EXTRA_DIST = keysafe.in ksed.in \
+EXTRA_DIST = keysafe.in \
+	     ksed.in \
 	     libkeysafe/cfg.py \
 	     libkeysafe/ctrl.py \
 	     libkeysafe/edgui.py \
 	     libkeysafe/gui.py \
 	     libkeysafe/__init__.py.in \
 	     libkeysafe/safe.py \
-	     gui/keysafe.glade gui/ksed.glade \
-	     gnome/keysafe.schemas
+	     gui/keysafe.glade \
+	     gui/ksed.glade \
+	     gnome/keysafe.schemas \
+	     autogen.sh
 
 # clean
 CLEANFILES = keysafe ksed libkeysafe/__init__.py
