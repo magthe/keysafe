@@ -17,14 +17,16 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
+import os.path
 
+import libkeysafe
 import cfg
 import ctrl
 
 class MainWinGui(object):
     def __init__(self):
         object.__init__(self)
-        self.gui = gtk.glade.XML('gui/keysafe.glade')
+        self.gui = gtk.glade.XML(os.path.join(libkeysafe.glade_path, 'keysafe.glade'))
         self.gui.signal_autoconnect(self)
         completion = gtk.EntryCompletion()
         self.gui.liststore = gtk.ListStore(str)

@@ -1,8 +1,0 @@
-include MANIFEST.in
-include keysafe
-include ksed
-recursive-include libkeysafe *.py
-recursive-include gui *.glade
-recursive-include gnome *.schemas
-include ChangeLog
-include NEWS

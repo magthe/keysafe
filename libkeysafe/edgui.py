@@ -17,7 +17,9 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
+import os.path
 
+import libkeysafe
 from libkeysafe import safe, cfg
 
 class MainEdGui(object):
@@ -25,7 +27,7 @@ class MainEdGui(object):
 
     def __init__(self):
         object.__init__(self)
-        self.__gui = gtk.glade.XML('gui/ksed.glade')
+        self.__gui = gtk.glade.XML(os.path.join(libkeysafe.glade_path,'ksed.glade'))
         self.__gui.signal_autoconnect(self)
         self.__populate_list()
         self.__populate_cfg()

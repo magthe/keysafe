@@ -1,7 +1,15 @@
-2005-06-05 Release of version 0.1.1
- 
- * Fixed bug where the ID of an entry was put in instead of the user name.
+0.3: 2005-08-05
+        Added button to copy username to clipboard.
+        Improved build system.
+        Added copyrigth notices in all files.
 
-2005-06-04 Release of version 0.1
+0.2: 2005-07-15
+        Moved onfiguration to GConf.
+
+0.1.1: 2005-06-05
+        Bugs fix.
+ 
+0.1: 2005-06-04
+        First public release
 
 vim: set ft=text:

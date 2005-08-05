@@ -16,7 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import libkeysafe.gui
+import sys
+sys.path = ['@KEYSAFE_PY_PATH@'] + sys.path
+
+import libkeysafe.edgui
 
 if __name__ == '__main__':
-    libkeysafe.gui.main()
+    libkeysafe.edgui.main()

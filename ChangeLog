@@ -1,3 +1,17 @@
+2005-08-05  Magnus Therning <magnus@therning.org>
+
+	* MANIFEST.in, setup.py: No longer using distutils to build.
+	* AUTHORS, autogen.sh, configure.ac, Makefile.am: Autoconfiscation,
+	GNOME style.
+	* keysafe, keysafe.in, ksed, ksed.in, libkeysafe/__init__.py,
+	libkeysafe/__init__.py.in, libkeysafe/edgui.py, libkeysafe/gui.py:
+	Modifications to make use of auto-tools.
+
+2005-07-14  Magnus Therning <magnus@therning.org>
+
+	* gnome/keysafe.schemas, libkeysafe/cfg.py, libkeysafe/edgui.py,
+	libkeysafe/safe.py: Configuration in GConf instead of in INI file.
+
 2005-07-05  Magnus Therning <magnus@therning.org>
 
 	* libkeysafe/safe.py: Fixed a bug where the ID of an entry was put in
