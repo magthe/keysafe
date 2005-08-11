@@ -1,14 +1,11 @@
 Things I'd like to do:
 
-- Use gconf for configuration
-  - schema with defaults
+- Fix the exception that's thrown when the safe doesn't exist.
+- Add a master password dialogue for the editor.
+- Clean up the GUI for the editor.
 
-- Add a button to copy the user name to clipboard:
-   The steps should be
-   1. choose ID
-   2. copy user name to clipboard
-   3. enter master password
-   4. copy password to clipboard and hide window
-   5. time out and die
+Things I've done (and feel good about :)
+- Use gconf for configuration.
+- Add a button to copy the user name to clipboard.
 
 vim: set ft=text:

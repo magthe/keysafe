@@ -33,23 +33,18 @@ problems with the current implementation.
 Installation
 ============
 
-The installation is somewhat unfriendly. You have been warned!
+If you're using Ubuntu (or any other Debian-based distro) you should take a
+look at my APT repo:
 
-The reason for this is that the GUI is made using Glade and the code used to
-load it isn't very flexible. I'm also hesitant making it more flexible by
-using Python code. I'd much rather see distutils support rewriting similar to
-what Autoconf does. For now it's left as an exercise for packagers and
-daredevils installing from source.
+ http://therning.org/magnus_apt/
 
-INSTALL contains more details of what is needed.
+INSTALL contains more details of what is needed to install it from source.
 
 Left to do
 ==========
 
 The configuration tool is not friendly at all. It suffices for its purpose but
 its GUI could do with an overhaul.
-
-The store itself uses cryptography to store the passwords
 
 --------------------------------------------------------------------------
 1. http://msdn.microsoft.com/msdnmag/issues/04/07/SecurityBriefs/

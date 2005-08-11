@@ -49,7 +49,7 @@ class MainWinGui(object):
 
     def on_entryKeyId_changed(self, widget):
         un, info = self.ctrl.get_from_entry(widget.get_text())
-        if un and info:
+        if un:
             self.gui.get_widget('lblUserName').set_text(un)
             self.gui.get_widget('lblInfo').set_text(info)
             self.gui.get_widget('btnCopyUN').set_sensitive(1)

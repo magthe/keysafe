@@ -1,3 +1,6 @@
+0.3.2: 2005-08-12
+        Bugfix: entries without a note wouldn't show up in keysafe.
+
 0.3.1: 2005-08-06
         Build fixes.
 
