@@ -75,7 +75,6 @@ def _load_safe():
         fd.close()
     except (IOError, EOFError), e:
         s.set_entries({})
-        raise e
     except pickle.PickleError, e:
         s.set_entries({})
         fd.close()
