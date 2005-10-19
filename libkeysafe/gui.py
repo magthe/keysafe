@@ -33,7 +33,9 @@ class MainWinGui(object):
         completion.set_model(self.gui.liststore)
         self.gui.get_widget('entryKeyId').set_completion(completion)
         completion.set_text_column(0)
+
         self.ctrl = ctrl.MainWinCtrl(self.gui)
+
         self.gui.get_widget('btnCopyUN').set_sensitive(0)
         self.gui.get_widget('btnCopyExit').set_sensitive(0)
         self.gui.get_widget('winMain').show_all()
@@ -42,10 +44,10 @@ class MainWinGui(object):
 
     # Main window callbacks
     def on_winMain_destroy(self, widget):
-        gtk.main_quit()
+        self.quit()
 
     def timeout_quit(self):
-        gtk.main_quit()
+        self.quit()
 
     def on_entryKeyId_changed(self, widget):
         un, info = self.ctrl.get_from_entry(widget.get_text())
@@ -77,6 +79,11 @@ class MainWinGui(object):
             self.gui.get_widget('winMain').hide_all()
         except Exception, e:
             print e
+
+    # quitting must be handled
+    def quit(self):
+        self.ctrl.clear_clipboard()
+        gtk.main_quit()
 
 def main():
     MainWinGui()

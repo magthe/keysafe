@@ -18,6 +18,9 @@ import safe
 
 import gtk
 
+# TODO: Add signal handling so that the password won't be left in the GNOME
+# clipboard if a signal is sent before the application times out and exits.
+
 class MainWinCtrl(object):
     def __init__(self, gui):
         object.__init__(self)
@@ -35,9 +38,15 @@ class MainWinCtrl(object):
 
     def copy_text_to_clipboard(self, t):
         gtk.clipboard_get('CLIPBOARD').set_text(t)
+        gtk.clipboard_get('PRIMARY').set_text(t)
 
     def copy_pw_to_clipboard(self, s, k):
         entry = safe.get_entry(s)
-        cb = gtk.clipboard_get('CLIPBOARD')
         # let the caller handle any exception due to bad password
-        cb.set_text(safe.decrypt(entry[1], k))
+        self.copy_text_to_clipboard(safe.decrypt(entry[1], k))
+
+    def clear_clipboard(self):
+        # a bit of a shortcut, we don't care what is in the clipboard, just
+        # clear it!
+        gtk.clipboard_get('CLIPBOARD').clear()
+        gtk.clipboard_get('PRIMARY').clear()
