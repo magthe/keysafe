@@ -18,9 +18,6 @@ import safe
 
 import gtk
 
-# TODO: Add signal handling so that the password won't be left in the GNOME
-# clipboard if a signal is sent before the application times out and exits.
-
 class MainWinCtrl(object):
     def __init__(self, gui):
         object.__init__(self)
@@ -28,6 +25,10 @@ class MainWinCtrl(object):
         _s = safe.get_safe()
         for k in _s.keys():
             gui.liststore.append([k])
+
+    def __del__(self):
+        # this shouldn't be strictly necessary, but you never know
+        self.clear_clipboard()
 
     def get_from_entry(self, s):
         entry = safe.get_entry(s)

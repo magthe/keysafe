@@ -40,7 +40,11 @@ class MainWinGui(object):
         self.gui.get_widget('btnCopyExit').set_sensitive(0)
         self.gui.get_widget('winMain').show_all()
         self.gui.get_widget('winMain').set_position(gtk.WIN_POS_MOUSE)
-        gtk.main()
+        try:
+            gtk.main()
+        except:
+            # no matter what exception, clear the clipboard
+            self.ctrl.clear_clipboard()
 
     # Main window callbacks
     def on_winMain_destroy(self, widget):
