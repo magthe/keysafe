@@ -64,9 +64,6 @@ class _Safe(object):
         self.__entries.pop(id)
 
 def _load_safe():
-    # This should use the configured filename for the safe, load it using
-    # pickle and then return it. I need to come up with a good format for
-    # it.
     s = get_safe()
     c = cfg.get_config()
     try:
@@ -86,12 +83,9 @@ def save_safe():
         fd = file(os.path.expanduser(c['keyfile']), 'w+')
         pickle.dump(s.get_entries(), fd)
         fd.close()
-    except IOError, e:
-        s.set_entries({})
-        raise e
     except pickle.PickleError, e:
-        s.set_entries({})
         fd.close()
+        raise e
 
 def get_safe():
     if not _Safe.instance:
@@ -184,7 +178,7 @@ def encrypt(plain_text, passwd):
 
     # create the full plain text string, make sure it matches the block size
     # for AES
-    pt = plain_text + "keysafe"
+    pt = plain_text + _KNOWN_STR
     rnd_pad_len = struct.unpack('B', rp.get_bytes(1))[0]
     rnd_pad_len += AES.block_size - \
             (1 + len(pt) + rnd_pad_len) % AES.block_size

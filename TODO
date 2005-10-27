@@ -1,10 +1,10 @@
 Things I'd like to do:
 
-- Fix the exception that's thrown when the safe doesn't exist.
 - Add a master password dialogue for the editor.
 - Clean up the GUI for the editor.
 
 Things I've done (and feel good about :)
+- Fix the exception that's thrown when the safe doesn't exist.
 - Use gconf for configuration.
 - Add a button to copy the user name to clipboard.
 
