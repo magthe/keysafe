@@ -11,3 +11,7 @@ py-compile
 Makefile
 keysafe
 ksed
+libkeysafe/__init__.py
+keysafe-*.gz
+keysafe-*.bz2
+gnome/*.desktop

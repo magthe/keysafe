@@ -1,4 +1,4 @@
-AUTOMAKE_OPTIONS = check-news dist-bzip2 subdir-objects
+AUTOMAKE_OPTIONS = dist-bzip2 subdir-objects
 
 # directories
 pylibdir = $(pkglibdir)/libkeysafe
@@ -25,7 +25,8 @@ desktop_DATA = gnome/keysafe.desktop gnome/ksed.desktop
 # some manual builds
 edit = sed \
        -e 's,@KEYSAFE_PY_PATH@,$(pkglibdir),g' \
-       -e 's,@KEYSAFE_GLADE_PATH@,$(guidir),g'
+       -e 's,@KEYSAFE_GLADE_PATH@,$(guidir),g' \
+       -e 's,@KEYSAFE_BIN_PATH@,$(bindir),g'
 
 keysafe: $(srcdir)/keysafe.in Makefile
 	rm -f $(top_builddir)/keysafe $(top_builddir)/keysafe.tmp
@@ -48,19 +49,25 @@ libkeysafe/__init__.py: $(srcdir)/libkeysafe/__init__.py.in Makefile
 	mv $(top_builddir)/libkeysafe/__init__.py.tmp \
 		$(top_builddir)/libkeysafe/__init__.py
 
+gnome/%.desktop : $(srcdir)/gnome/%.desktop.in Makefile
+	[ -d $(top_builddir)/gnome ] || mkdir $(top_builddir)/gnome
+	rm -f $(top_builddir)/$@ $(top_builddir)/$@.tmp
+	$(edit) $(srcdir)/$@.in > $(top_builddir)/$@.tmp
+	mv $(top_builddir)/$@.tmp $(top_builddir)/$@
+
 # installation of schemas
-install-data-hook:
 if GCONF_SCHEMAS_INSTALL
+install-data-hook:
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-		$(GCONFTOOL) --make-install-rule $(schema_DATA)
+		$(GCONFTOOL) --makefile-install-rule $(srcdir)/$(schema_DATA)
 endif
 
 # dist
 EXTRA_DIST = \
 	     autogen.sh \
-	     gnome/keysafe.desktop \
+	     gnome/keysafe.desktop.in \
 	     gnome/keysafe.schemas \
-	     gnome/ksed.desktop \
+	     gnome/ksed.desktop.in \
 	     gui/keysafe.glade \
 	     gui/ksed.glade \
 	     keysafe.in \
@@ -73,4 +80,7 @@ EXTRA_DIST = \
 	     libkeysafe/safe.py
 
 # clean
-CLEANFILES = keysafe ksed libkeysafe/__init__.py
+CLEANFILES = \
+	     keysafe ksed \
+	     libkeysafe/__init__.py \
+	     gnome/keysafe.desktop gnome/ksed.desktop

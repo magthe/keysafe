@@ -1,3 +1,6 @@
+0.3.5: 2005-12-08
+        Modified build to deal with GConf schemas properly.
+
 0.3.4: 2005-10-20
         Update to deal with GNOME 2.12 features.
 
