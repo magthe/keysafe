@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = check-news dist-bzip2 subdir-objects
 pylibdir = $(pkglibdir)/libkeysafe
 guidir = $(pkglibdir)/gui
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
-#desktopdir = $(datadir)/applications
+desktopdir = $(datadir)/applications
 
 bin_SCRIPTS = keysafe ksed
 
@@ -19,6 +19,8 @@ pylib_PYTHON = \
 gui_DATA = gui/keysafe.glade gui/ksed.glade
 
 schema_DATA = gnome/keysafe.schemas
+
+desktop_DATA = gnome/keysafe.desktop gnome/ksed.desktop
 
 # some manual builds
 edit = sed \
@@ -46,19 +48,29 @@ libkeysafe/__init__.py: $(srcdir)/libkeysafe/__init__.py.in Makefile
 	mv $(top_builddir)/libkeysafe/__init__.py.tmp \
 		$(top_builddir)/libkeysafe/__init__.py
 
+# installation of schemas
+install-data-hook:
+if GCONF_SCHEMAS_INSTALL
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
+		$(GCONFTOOL) --make-install-rule $(schema_DATA)
+endif
+
 # dist
-EXTRA_DIST = keysafe.in \
+EXTRA_DIST = \
+	     autogen.sh \
+	     gnome/keysafe.desktop \
+	     gnome/keysafe.schemas \
+	     gnome/ksed.desktop \
+	     gui/keysafe.glade \
+	     gui/ksed.glade \
+	     keysafe.in \
 	     ksed.in \
+	     libkeysafe/__init__.py.in \
 	     libkeysafe/cfg.py \
 	     libkeysafe/ctrl.py \
 	     libkeysafe/edgui.py \
 	     libkeysafe/gui.py \
-	     libkeysafe/__init__.py.in \
-	     libkeysafe/safe.py \
-	     gui/keysafe.glade \
-	     gui/ksed.glade \
-	     gnome/keysafe.schemas \
-	     autogen.sh
+	     libkeysafe/safe.py
 
 # clean
 CLEANFILES = keysafe ksed libkeysafe/__init__.py

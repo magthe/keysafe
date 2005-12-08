@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=KeySafe Config
+Comment=KeySafe configuration tool
+Exec=/usr/bin/ksed
+Type=Application
+Terminal=false
+Categories=GNOME;Application;System

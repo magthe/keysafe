@@ -8,3 +8,6 @@ configure
 install-sh
 missing
 py-compile
+Makefile
+keysafe
+ksed
