@@ -6,7 +6,7 @@ guidir = $(pkglibdir)/gui
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
 desktopdir = $(datadir)/applications
 
-bin_SCRIPTS = keysafe ksed
+bin_SCRIPTS = keysafe ksed tools/ksdump
 
 pylib_PYTHON = \
 	libkeysafe/cfg.py \
@@ -39,6 +39,13 @@ ksed: $(srcdir)/ksed.in Makefile
 	$(edit) $(srcdir)/ksed.in > $(top_builddir)/ksed.tmp
 	chmod +x $(top_builddir)/ksed.tmp
 	mv $(top_builddir)/ksed.tmp $(top_builddir)/ksed
+
+tools/ksdump: $(srcdir)/tools/ksdump.in Makefile
+	[ -d $(top_builddir)/tools ] || mkdir tools
+	rm -f $(top_builddir)/tools/ksdump $(top_builddir)/tools/ksdump.tmp
+	$(edit) $(srcdir)/tools/ksdump.in > $(top_builddir)/tools/ksdump.tmp
+	chmod +x $(top_builddir)/tools/ksdump.tmp
+	mv $(top_builddir)/tools/ksdump.tmp $(top_builddir)/tools/ksdump
 
 libkeysafe/__init__.py: $(srcdir)/libkeysafe/__init__.py.in Makefile
 	[ -d $(top_builddir)/libkeysafe ] || mkdir libkeysafe

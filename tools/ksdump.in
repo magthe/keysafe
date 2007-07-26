@@ -1,0 +1,48 @@
+#! /usr/bin/env python2.4
+
+
+from optparse import OptionParser, make_option
+import pickle
+import sys
+sys.path = ['@KEYSAFE_PY_PATH@'] + sys.path
+
+import safe
+import cfg
+
+
+_OPTIONS = [ \
+        make_option('-p', '--password', help='password for keysafe store'), \
+        make_option('-s', '--safe', help='keysafe store'), \
+        make_option('-o', '--filename', \
+            help='filename to save cleartext to'), \
+        ]
+
+
+def main():
+    parser = OptionParser(option_list=_OPTIONS)
+    options, args = parser.parse_args()
+    if not options.password or not options.safe:
+        print >> sys.stderr, 'You must provide a safe and a password'
+        sys.exit(1)
+    outfile = sys.stdout
+    if options.filename:
+        try:
+            outfile = file(options.filename, 'w+')
+        except IOError, e:
+            print >> sys.stderr, 'Could not open file.'
+            sys.exit(1)
+
+    config = {'keyfile' : options.safe}
+    s = safe.get_safe(config=config)
+    result = []
+    for k in s.keys():
+        un = s[k][0]
+        pw = safe.decrypt(s[k][1], options.password)
+        text = s[k][2]
+        result.append((k, un, pw, text))
+    
+    pickle.dump(result, outfile)
+
+
+if __name__ == '__main__':
+    main()

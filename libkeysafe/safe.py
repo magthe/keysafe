@@ -63,11 +63,10 @@ class _Safe(object):
     def delete(self, id):
         self.__entries.pop(id)
 
-def _load_safe():
+def _load_safe(config):
     s = get_safe()
-    c = cfg.get_config()
     try:
-        fd = file(os.path.expanduser(c['keyfile']), 'r')
+        fd = file(os.path.expanduser(config['keyfile']), 'r')
         s.set_entries(pickle.load(fd))
         fd.close()
     except (IOError, EOFError), e:
@@ -87,10 +86,12 @@ def save_safe():
         fd.close()
         raise e
 
-def get_safe():
+def get_safe(config=None):
+    if not config:
+        config = cfg.get_config()
     if not _Safe.instance:
         _Safe.instance = _Safe()
-        _load_safe()
+        _load_safe(config=config)
     return _Safe.instance
 
 def get_entry(id):
