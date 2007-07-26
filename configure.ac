@@ -1,4 +1,4 @@
-AC_INIT(keysafe, 0.3.5, [Magnus Therning <magnus@therning.org>])
+AC_INIT(keysafe, 0.3.5.p, [Magnus Therning <magnus@therning.org>])
 AC_CONFIG_SRCDIR(libkeysafe/safe.py)
 AM_INIT_AUTOMAKE
 

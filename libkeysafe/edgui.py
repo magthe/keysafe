@@ -32,6 +32,7 @@ class MainEdGui(object):
         self.__populate_list()
         self.__populate_cfg()
         self.__gui.get_widget('btnStore').set_sensitive(0)
+        self.__gui.get_widget('winMain').show_all()
         gtk.main()
 
     def __populate_list(self):
@@ -76,14 +77,13 @@ class MainEdGui(object):
         @param id: The ID of the entry to use.
         '''
         entry = safe.get_entry(id)
-        master_pwd = self.__gui.get_widget('entryMasterPwd').get_text()
 
         self.__gui.get_widget('entryID').set_text(id)
         self.__gui.get_widget('entryUserName').set_text(entry[0])
         self.__gui.get_widget('textNote').get_buffer().set_text(entry[2])
         try:
-            self.__gui.get_widget('entryPasswd1').set_text(safe.decrypt(entry[1], master_pwd))
-            self.__gui.get_widget('entryPasswd2').set_text(safe.decrypt(entry[1], master_pwd))
+            self.__gui.get_widget('entryPasswd1').set_text(safe.decrypt(entry[1], self.__master_pwd))
+            self.__gui.get_widget('entryPasswd2').set_text(safe.decrypt(entry[1], self.__master_pwd))
         except safe.BadPwdException, e:
             self.__gui.get_widget('entryPasswd1').set_text(self.__BADPWDTXT)
             self.__gui.get_widget('entryPasswd2').set_text(self.__BADPWDTXT)
@@ -102,8 +102,29 @@ class MainEdGui(object):
         pwd2 = self.__gui.get_widget('entryPasswd2').get_text()
         s, e = self.__gui.get_widget('textNote').get_buffer().get_bounds()
         note = self.__gui.get_widget('textNote').get_buffer().get_text(s, e)
-        mpwd = self.__gui.get_widget('entryMasterPwd').get_text()
-        return id, un, pwd1, pwd2, note, mpwd
+        return id, un, pwd1, pwd2, note
+
+    def on_dlgMainPwd_response(self, widget, response):
+        if response == 1:
+            e = safe.get_entry(safe.get_safe().keys()[0])
+            mpwd = self.__gui.get_widget('entryMPwd').get_text()
+            if e:
+                try:
+                    safe.decrypt(e[1], mpwd)
+                except:
+                    self.__gui.get_widget('entryMPwd').set_text('')
+                    return
+            self.__master_pwd = mpwd
+            self.__dlg.hide()
+        else:
+            gtk.main_quit()
+
+    def on_entryMPwd_activate(self, widget):
+        self.on_dlgMainPwd_response(None, 1)
+
+    def on_winMain_show(self, widget, *args, **kwargs):
+        self.__dlg = self.__gui.get_widget('dlgMainPwd')
+        self.__dlg.show_all()
 
     def on_winMain_destroy(self, widget):
         gtk.main_quit()
@@ -127,9 +148,9 @@ class MainEdGui(object):
             self.__clear_txt_entries()
     
     def on_btnStore_clicked(self, widget):
-        id, un, pwd1, pwd2, note, mpw = self.__collect_values()
+        id, un, pwd1, pwd2, note = self.__collect_values()
         # TODO: sanity checks on values
-        safe.set_entry(id, un, pwd1, note, mpw)
+        safe.set_entry(id, un, pwd1, note, self.__master_pwd)
         self.__update_list()
 
     def on_btnDelete_clicked(self, widget):
@@ -155,15 +176,6 @@ class MainEdGui(object):
             self.__gui.get_widget('btnStore').set_sensitive(1)
         else:
             self.__gui.get_widget('btnStore').set_sensitive(0)
-
-    def on_entryMasterPwd_changed(self, widget):
-        '''@type widget: GtkEntry
-        @param widget: The widget
-        '''
-        model, iter = self.__gui.get_widget('treeSafe').get_selection().get_selected()
-        if iter:
-            id = model.get_value(iter, 0)
-            self.__populate_txt_entries(id)
 
 def main():
     MainEdGui()
