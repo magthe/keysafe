@@ -6,7 +6,8 @@ guidir = $(pkglibdir)/gui
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
 desktopdir = $(datadir)/applications
 
-bin_SCRIPTS = keysafe ksed tools/ksdump
+bin_SCRIPTS = keysafe ksed
+noinst_SCRIPTS = tools/ksdump
 
 pylib_PYTHON = \
 	libkeysafe/cfg.py \
@@ -84,10 +85,12 @@ EXTRA_DIST = \
 	     libkeysafe/ctrl.py \
 	     libkeysafe/edgui.py \
 	     libkeysafe/gui.py \
-	     libkeysafe/safe.py
+	     libkeysafe/safe.py \
+	     tools/ksdump.in
 
 # clean
 CLEANFILES = \
 	     keysafe ksed \
 	     libkeysafe/__init__.py \
-	     gnome/keysafe.desktop gnome/ksed.desktop
+	     gnome/keysafe.desktop gnome/ksed.desktop \
+	     tools/ksdump
