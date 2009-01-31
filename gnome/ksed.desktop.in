@@ -1,9 +1,8 @@
 [Desktop Entry]
-Encoding=UTF-8
 Version=1.0
 Name=KeySafe Config
 Comment=KeySafe configuration tool
 Exec=@KEYSAFE_BIN_PATH@/ksed
 Type=Application
 Terminal=false
-Categories=GNOME;Application;System
+Categories=Settings;Security
