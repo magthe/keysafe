@@ -12,6 +12,7 @@ noinst_SCRIPTS = tools/ksdump
 pylib_PYTHON = \
 	libkeysafe/cfg.py \
 	libkeysafe/ctrl.py \
+	libkeysafe/crypto1.py \
 	libkeysafe/edgui.py \
 	libkeysafe/gui.py \
 	libkeysafe/__init__.py \

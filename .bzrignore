@@ -18,3 +18,4 @@ gnome/*.desktop
 config.log
 config.status
 tools/ksdump
+_build
