@@ -19,8 +19,13 @@ import sys
 import pickle
 
 import cfg
-from crypto1 import *
+import crypto1
 
+decrypt = crypto1.decrypt
+encrypt = crypto1.encrypt
+
+class BadPwdException(Exception):
+    pass
 
 class _Safe(object):
     '''Class to hold the safe.
@@ -121,7 +126,7 @@ def set_entry(id, un, pw, text, mpw):
     @param mpw: master password
     '''
     safe = get_safe()
-    safe[id] = (un, encrypt(pw, mpw), text)
+    safe[id] = (un, crypto1.encrypt(pw, mpw), text)
 
 def delete_entry(id):
     safe = get_safe()

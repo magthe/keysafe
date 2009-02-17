@@ -20,10 +20,9 @@ from Crypto.Util.randpool import RandomPool
 from base64 import b64encode, b64decode
 import struct
 
-_KNOWN_STR = "keysafe"
+import safe
 
-class BadPwdException(Exception):
-    pass
+_KNOWN_STR = "keysafe"
 
 def _derive_key(pwd, salt):
     '''Constructs a string of bytes from the provided password.
@@ -108,7 +107,7 @@ def decrypt(b64cipher_text, passwd):
 
     plain_len = struct.unpack('B', plain_text[0])[0]
     if plain_len < 0 or plain_len > len(plain_text[1:]):
-        raise BadPwdException()
+        raise safe.BadPwdException()
     if not _good_decipher(plain_text[1 + plain_len:]):
-        raise BadPwdException()
+        raise safe.BadPwdException()
     return plain_text[1:plain_len + 1]

@@ -13,10 +13,22 @@ pylib_PYTHON = \
 	libkeysafe/cfg.py \
 	libkeysafe/ctrl.py \
 	libkeysafe/crypto1.py \
+	libkeysafe/crypto2.py \
 	libkeysafe/edgui.py \
 	libkeysafe/gui.py \
 	libkeysafe/__init__.py \
 	libkeysafe/safe.py
+
+pylib_LTLIBRARIES = cryptobotan.la
+
+cryptobotan_la_SOURCES = \
+		  src/cryptobotan.cc \
+		  src/crypto.cc \
+		  src/crypto.hh
+
+cryptobotan_la_CXXFLAGS = -I /usr/include/python2.5
+cryptobotan_la_LDFLAGS = -module -lboost_python-py25 \
+			 $(shell pkg-config --libs botan-1.8)
 
 gui_DATA = gui/keysafe.glade gui/ksed.glade
 

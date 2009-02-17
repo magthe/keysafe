@@ -19,3 +19,7 @@ config.log
 config.status
 tools/ksdump
 _build
+config.guess
+config.sub
+depcomp
+ltmain.sh
