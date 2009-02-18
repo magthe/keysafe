@@ -106,14 +106,15 @@ class MainEdGui(object):
 
     def on_dlgMainPwd_response(self, widget, response):
         if response == 1:
-            e = oldsafe.get_entry(oldsafe.get_safe().keys()[0])
             mpwd = self.__gui.get_widget('entryMPwd').get_text()
-            if e:
-                try:
-                    oldsafe.decrypt(e[1], mpwd)
-                except:
-                    self.__gui.get_widget('entryMPwd').set_text('')
-                    return
+            if len(oldsafe.get_safe().keys()) > 0:
+                e = oldsafe.get_entry(oldsafe.get_safe().keys()[0])
+                if e:
+                    try:
+                        oldsafe.decrypt(e[1], mpwd)
+                    except:
+                        self.__gui.get_widget('entryMPwd').set_text('')
+                        return
             self.__master_pwd = mpwd
             self.__dlg.hide()
         else:
