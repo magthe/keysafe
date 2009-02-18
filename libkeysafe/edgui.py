@@ -20,7 +20,7 @@ import gtk, gtk.glade, gobject
 import os.path
 
 import libkeysafe
-from libkeysafe import safe, cfg
+from libkeysafe import oldsafe, cfg
 
 class MainEdGui(object):
     __BADPWDTXT = 'Wrong master password'
@@ -54,7 +54,7 @@ class MainEdGui(object):
         self.__update_list()
 
     def __update_list(self):
-        _s = safe.get_safe()
+        _s = oldsafe.get_safe()
         self.store.clear()
         for k in _s.keys():
             self.store.append([k])
@@ -76,15 +76,15 @@ class MainEdGui(object):
         @type id: string
         @param id: The ID of the entry to use.
         '''
-        entry = safe.get_entry(id)
+        entry = oldsafe.get_entry(id)
 
         self.__gui.get_widget('entryID').set_text(id)
         self.__gui.get_widget('entryUserName').set_text(entry[0])
         self.__gui.get_widget('textNote').get_buffer().set_text(entry[2])
         try:
-            self.__gui.get_widget('entryPasswd1').set_text(safe.decrypt(entry[1], self.__master_pwd))
-            self.__gui.get_widget('entryPasswd2').set_text(safe.decrypt(entry[1], self.__master_pwd))
-        except safe.BadPwdException, e:
+            self.__gui.get_widget('entryPasswd1').set_text(oldsafe.decrypt(entry[1], self.__master_pwd))
+            self.__gui.get_widget('entryPasswd2').set_text(oldsafe.decrypt(entry[1], self.__master_pwd))
+        except oldsafe.BadPwdException, e:
             self.__gui.get_widget('entryPasswd1').set_text(self.__BADPWDTXT)
             self.__gui.get_widget('entryPasswd2').set_text(self.__BADPWDTXT)
 
@@ -106,11 +106,11 @@ class MainEdGui(object):
 
     def on_dlgMainPwd_response(self, widget, response):
         if response == 1:
-            e = safe.get_entry(safe.get_safe().keys()[0])
+            e = oldsafe.get_entry(oldsafe.get_safe().keys()[0])
             mpwd = self.__gui.get_widget('entryMPwd').get_text()
             if e:
                 try:
-                    safe.decrypt(e[1], mpwd)
+                    oldsafe.decrypt(e[1], mpwd)
                 except:
                     self.__gui.get_widget('entryMPwd').set_text('')
                     return
@@ -133,7 +133,7 @@ class MainEdGui(object):
         gtk.main_quit()
 
     def on_btnDone_clicked(self, widget):
-        safe.save_safe()
+        oldsafe.save_safe()
         self.__save_cfg_values()
         gtk.main_quit()
 
@@ -149,8 +149,7 @@ class MainEdGui(object):
     
     def on_btnStore_clicked(self, widget):
         id, un, pwd1, pwd2, note = self.__collect_values()
-        # TODO: sanity checks on values
-        safe.set_entry(id, un, pwd1, note, self.__master_pwd)
+        oldsafe.set_entry(id, un, pwd1, note, self.__master_pwd)
         self.__update_list()
 
     def on_btnDelete_clicked(self, widget):
@@ -158,7 +157,7 @@ class MainEdGui(object):
         model, iter = sel.get_selected()
         if iter:
             id = model.get_value(iter, 0)
-            safe.delete_entry(id)
+            oldsafe.delete_entry(id)
             self.__update_list()
 
     def on_entryPasswd1_changed(self, widget):

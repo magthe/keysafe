@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import safe
+import oldsafe
 
 import gtk
 
@@ -22,7 +22,7 @@ class MainWinCtrl(object):
     def __init__(self, gui):
         object.__init__(self)
         self.gui = gui
-        _s = safe.get_safe()
+        _s = oldsafe.get_safe()
         for k in _s.keys():
             gui.liststore.append([k])
 
@@ -31,7 +31,7 @@ class MainWinCtrl(object):
         self.clear_clipboard()
 
     def get_from_entry(self, s):
-        entry = safe.get_entry(s)
+        entry = oldsafe.get_entry(s)
         if entry != None:
             return entry[0], entry[2]
         else:
@@ -42,9 +42,9 @@ class MainWinCtrl(object):
         gtk.clipboard_get('PRIMARY').set_text(t)
 
     def copy_pw_to_clipboard(self, s, k):
-        entry = safe.get_entry(s)
+        entry = oldsafe.get_entry(s)
         # let the caller handle any exception due to bad password
-        self.copy_text_to_clipboard(safe.decrypt(entry[1], k))
+        self.copy_text_to_clipboard(oldsafe.decrypt(entry[1], k))
 
     def clear_clipboard(self):
         # a bit of a shortcut, we don't care what is in the clipboard, just

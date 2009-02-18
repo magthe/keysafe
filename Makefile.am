@@ -17,7 +17,7 @@ pylib_PYTHON = \
 	libkeysafe/edgui.py \
 	libkeysafe/gui.py \
 	libkeysafe/__init__.py \
-	libkeysafe/safe.py
+	libkeysafe/oldsafe.py
 
 pylib_LTLIBRARIES = cryptobotan.la
 
@@ -96,9 +96,11 @@ EXTRA_DIST = \
 	     libkeysafe/__init__.py.in \
 	     libkeysafe/cfg.py \
 	     libkeysafe/ctrl.py \
+	     libkeysafe/crypto1.py \
+	     libkeysafe/crypto2.py \
 	     libkeysafe/edgui.py \
 	     libkeysafe/gui.py \
-	     libkeysafe/safe.py \
+	     libkeysafe/oldsafe.py \
 	     tools/ksdump.in
 
 # clean
