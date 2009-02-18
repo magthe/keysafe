@@ -2,6 +2,7 @@
 
 
 from optparse import OptionParser, make_option
+import getpass
 import pickle
 import sys
 sys.path = ['@KEYSAFE_PY_PATH@'] + sys.path
@@ -11,7 +12,6 @@ import cfg
 
 
 _OPTIONS = [ \
-        make_option('-p', '--password', help='password for keysafe store'), \
         make_option('-s', '--safe', help='keysafe store'), \
         make_option('-o', '--filename', \
             help='filename to save cleartext to'), \
@@ -21,9 +21,7 @@ _OPTIONS = [ \
 def main():
     parser = OptionParser(option_list=_OPTIONS)
     options, args = parser.parse_args()
-    if not options.password or not options.safe:
-        print >> sys.stderr, 'You must provide a safe and a password'
-        sys.exit(1)
+    master_pwd = getpass.getpass()
     outfile = sys.stdout
     if options.filename:
         try:
@@ -37,7 +35,7 @@ def main():
     result = []
     for k in s.keys():
         un = s[k][0]
-        pw = safe.decrypt(s[k][1], options.password)
+        pw = safe.decrypt(s[k][1], master_pwd)
         text = s[k][2]
         result.append((k, un, pw, text))
     
