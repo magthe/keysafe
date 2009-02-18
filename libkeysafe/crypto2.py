@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from libkeysafe.safe import BadPwdException
+import safe
 from libkeysafe.cryptobotan import Crypto
 
 _KNOWN_STR = "keysafe2"
@@ -32,5 +32,5 @@ def decrypt(b64cipher_text, passwd):
     s, ct = ct0[:8], ct0[8:]
     c = Crypto(passwd)
     fpt = c.decrypt(s, ct)
-    if not _good_decipher(fpt): raise BadPwdException()
+    if not _good_decipher(fpt): raise safe.BadPwdException()
     return fpt[:-len(_KNOWN_STR)]

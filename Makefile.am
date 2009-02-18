@@ -7,7 +7,9 @@ schemadir = $(GCONF_SCHEMA_FILE_DIR)
 desktopdir = $(datadir)/applications
 
 bin_SCRIPTS = keysafe ksed
-noinst_SCRIPTS = tools/ksdump
+noinst_SCRIPTS = \
+		 tools/ksdump \
+		 tools/ksconv
 
 pylib_PYTHON = \
 	libkeysafe/cfg.py \
@@ -17,7 +19,8 @@ pylib_PYTHON = \
 	libkeysafe/edgui.py \
 	libkeysafe/gui.py \
 	libkeysafe/__init__.py \
-	libkeysafe/oldsafe.py
+	libkeysafe/oldsafe.py \
+	libkeysafe/safe.py
 
 pylib_LTLIBRARIES = cryptobotan.la
 
@@ -61,6 +64,13 @@ tools/ksdump: $(srcdir)/tools/ksdump.in Makefile
 	chmod +x $(top_builddir)/tools/ksdump.tmp
 	mv $(top_builddir)/tools/ksdump.tmp $(top_builddir)/tools/ksdump
 
+tools/ksconv: $(srcdir)/tools/ksconv.in Makefile
+	[ -d $(top_builddir)/tools ] || mkdir tools
+	rm -f $(top_builddir)/tools/ksconv $(top_builddir)/tools/ksconv.tmp
+	$(edit) $(srcdir)/tools/ksconv.in > $(top_builddir)/tools/ksconv.tmp
+	chmod +x $(top_builddir)/tools/ksconv.tmp
+	mv $(top_builddir)/tools/ksconv.tmp $(top_builddir)/tools/ksconv
+
 libkeysafe/__init__.py: $(srcdir)/libkeysafe/__init__.py.in Makefile
 	[ -d $(top_builddir)/libkeysafe ] || mkdir libkeysafe
 	rm -f $(top_builddir)/libkeysafe/__init__.py \
@@ -101,11 +111,14 @@ EXTRA_DIST = \
 	     libkeysafe/edgui.py \
 	     libkeysafe/gui.py \
 	     libkeysafe/oldsafe.py \
-	     tools/ksdump.in
+	     libkeysafe/safe.py \
+	     tools/ksdump.in \
+	     tools/ksconv.in
 
 # clean
 CLEANFILES = \
 	     keysafe ksed \
 	     libkeysafe/__init__.py \
 	     gnome/keysafe.desktop gnome/ksed.desktop \
-	     tools/ksdump
+	     tools/ksdump \
+	     tools/ksconv
