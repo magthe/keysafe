@@ -72,11 +72,12 @@ def _load_safe(config):
         s.set_entries({})
         fd.close()
 
-def save_safe():
+def save_safe(config=None):
     s = get_safe()
-    c = cfg.get_config()
+    if not config:
+        config = cfg.get_config()
     try:
-        fd = file(os.path.expanduser(c['keyfile']), 'w+')
+        fd = file(os.path.expanduser(config['keyfile']), 'w+')
         pickle.dump(s.get_entries(), fd)
         fd.close()
     except pickle.PickleError, e:

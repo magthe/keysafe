@@ -26,29 +26,39 @@ import libkeysafe.oldsafe as oldsafe
 import libkeysafe.safe as safe
 
 _OPTIONS = [ \
-        make_option('-s', '--safe', help='keysafe store (old format)'), \
-        make_option('-o', '--filename', \
-            help='filename for the new keysafe (new format)'), \
+        make_option('-s', '--safe', default='key_in.safe', \
+            help='keysafe store to convert'), \
+        make_option('-o', '--filename', default='key_out.safe', \
+            help='filename for the new keysafe store'), \
+        make_option('-d', '--format', default=2, \
+            help='destination format, 1 or 2'), \
         ]
+
+def get_safes(options):
+    ocfg = {'keyfile' : options.safe}
+    ncfg = {'keyfile' : options.filename}
+    if options.format == 2:
+        from_safe = oldsafe.get_safe(config=ocfg)
+        new_safe = safe.get_safe(config=ncfg)
+        return from_safe, new_safe, oldsafe, safe, ncfg
+    else:
+        from_safe = safe.get_safe(config=ocfg)
+        new_safe = oldsafe.get_safe(config=ncfg)
+        return from_safe, new_safe, safe, oldsafe, ncfg
 
 def main():
     parser = OptionParser(option_list=_OPTIONS)
     options, args = parser.parse_args()
     master_pwd = getpass.getpass()
 
-    outfile = sys.stdout
-
-    ocfg = {'keyfile' : options.safe}
-    ncfg = {'keyfile' : options.filename}
-    os = oldsafe.get_safe(config=ocfg)
-    ns = safe.get_safe(config=ncfg)
+    os, ns, osm, nsm, ncfg = get_safes(options)
     for k in os.keys():
         un = os[k][0]
-        pw = oldsafe.decrypt(os[k][1], master_pwd)
+        pw = osm.decrypt(os[k][1], master_pwd)
         text = os[k][2]
-        safe.set_entry(k, un, pw, text, master_pwd)
+        nsm.set_entry(k, un, pw, text, master_pwd)
     
-    safe.save_safe(config=ncfg)
+    nsm.save_safe(config=ncfg)
 
 if __name__ == '__main__':
     main()
