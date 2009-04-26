@@ -29,8 +29,9 @@ cryptobotan_la_SOURCES = \
 		  src/crypto.cc \
 		  src/crypto.hh
 
-cryptobotan_la_CXXFLAGS = -I /usr/include/python2.5
-cryptobotan_la_LDFLAGS = -module -lboost_python-py25 \
+cryptobotan_la_CXXFLAGS = $(shell python-config --includes) \
+			  $(shell pkg-config --cflags-only-I botan-1.8)
+cryptobotan_la_LDFLAGS = -module -lboost_python \
 			 $(shell pkg-config --libs botan-1.8)
 
 gui_DATA = gui/keysafe.glade gui/ksed.glade
