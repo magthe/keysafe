@@ -1,4 +1,0 @@
-2005-10-27  Magnus Therning <magnus@therning.org>
-
-	* libkeysafe/safe.py: There is no need to clean out the safe just
-	because it can't be saved. Use _KNOWN_STR everywhere.
