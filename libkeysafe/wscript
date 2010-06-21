@@ -1,0 +1,9 @@
+def build(bld):
+    bld(features='subst',
+            source='__init__.py.in',
+            target='__init__.py',
+            dict={
+                'KEYSAFE_PY_PATH' : 'pypath',
+                'KEYSAFE_GLADE_PATH' : 'gladepath',
+                'KEYSAFE_BIN_PATH' : 'binpath'
+                })
