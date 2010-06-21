@@ -1,0 +1,10 @@
+def build(bld):
+    bld(features='cxx cshlib pyext',
+            source='cryptobotan.cc  crypto.cc',
+            target='cryptobotan',
+            uselib='botan'
+            )
+
+# todo: installation
+
+# vim: set ft=python :
