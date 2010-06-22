@@ -9,6 +9,8 @@ def build(bld):
                     'KEYSAFE_GLADE_PATH' : bld.env.KEYSAFE_GLADE_PATH,
                     'KEYSAFE_BIN_PATH' : bld.env.KEYSAFE_BIN_PATH,
                     },
+                install_path = '${KEYSAFE_GNOME_DATA_PATH}',
                 )
 
+# how to install the schema file?
 # vim: set ft=python :

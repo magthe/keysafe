@@ -7,6 +7,4 @@ def build(bld):
             install_path='${KEYSAFE_PY_PATH}',
             )
 
-# todo: installation
-
 # vim: set ft=python :

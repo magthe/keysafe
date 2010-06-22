@@ -24,6 +24,7 @@ def configure(conf):
     conf.env.KEYSAFE_GLADE_PATH = os.path.join(conf.env.PREFIX, 'lib', 'keysafe', 'gui')
     conf.env.KEYSAFE_BIN_PATH = os.path.join(conf.env.PREFIX, 'bin')
     conf.env.KEYSAFE_GNOME_DATA_PATH = os.path.join(conf.env.PREFIX, 'share', 'applications')
+    conf.env.KEYSAFE_GNOME_SCHEMA_PATH = os.path.join(conf.env.PREFIX, 'etc', 'gconf', 'schemas')
 
 def build(bld):
     bld.add_subdirs('src gnome libkeysafe tools')
@@ -39,6 +40,7 @@ def build(bld):
                     'KEYSAFE_GLADE_PATH' : bld.env.KEYSAFE_GLADE_PATH,
                     'KEYSAFE_BIN_PATH' : bld.env.KEYSAFE_BIN_PATH,
                     },
+                install_path = '${KEYSAFE_BIN_PATH}',
                 )
 
 # vim: set ft=python :
