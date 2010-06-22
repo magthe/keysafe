@@ -5,7 +5,7 @@ def build(bld):
                 source=fil+'.in',
                 target=fil,
                 dict={
-                    'KEYSAFE_PY_PATH' : bld.env.KEYSAFE_PY_PATH,
+                    'KEYSAFE_PATH' : bld.env.KEYSAFE_PATH,
                     'KEYSAFE_GLADE_PATH' : bld.env.KEYSAFE_GLADE_PATH,
                     'KEYSAFE_BIN_PATH' : bld.env.KEYSAFE_BIN_PATH,
                     },

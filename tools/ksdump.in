@@ -5,7 +5,7 @@ from optparse import OptionParser, make_option
 import getpass
 import pickle
 import sys
-sys.path = ['@KEYSAFE_PY_PATH@'] + sys.path
+sys.path = ['@KEYSAFE_PATH@'] + sys.path
 
 import safe
 import cfg
