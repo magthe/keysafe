@@ -17,6 +17,7 @@ def configure(conf):
     conf.check_tool('boost')
     conf.check_tool('python')
     conf.check_tool('misc')
+    conf.check_tool('gnome')
     conf.check_python_headers()
     conf.check_cfg(package='botan-1.8', args='--cflags --libs', uselib_store='botan')
     conf.env.KEYSAFE_PATH = os.path.join(conf.env.PREFIX, 'lib', 'keysafe')

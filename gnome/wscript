@@ -1,3 +1,5 @@
+import gnome
+
 def build(bld):
     for fil in ['keysafe.desktop', 'ksed.desktop']:
         bld(
@@ -11,6 +13,13 @@ def build(bld):
                     },
                 install_path = '${KEYSAFE_GNOME_DATA_PATH}',
                 )
+
+    bld.install_files('${KEYSAFE_GNOME_SCHEMA_PATH}', ['keysafe.schemas'])
+
+    def post(bld):
+        gnome.postinstall_schemas('keysafe')
+
+    bld.add_post_fun(post)
 
 # how to install the schema file?
 # vim: set ft=python :
