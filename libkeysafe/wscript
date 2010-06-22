@@ -1,9 +1,18 @@
 def build(bld):
-    bld(features='subst',
+    bld(
+            features='subst',
             source='__init__.py.in',
             target='__init__.py',
             dict={
                 'KEYSAFE_PY_PATH' : 'pypath',
                 'KEYSAFE_GLADE_PATH' : 'gladepath',
-                'KEYSAFE_BIN_PATH' : 'binpath'
-                })
+                'KEYSAFE_BIN_PATH' : 'binpath',
+                },
+            )
+
+    bld(
+            features='py',
+            source=bld.path.ant_glob('*.py') + ' __init__.py',
+            )
+
+# vim: set ft=python :

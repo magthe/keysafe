@@ -23,14 +23,16 @@ def build(bld):
     bld.add_subdirs('src gnome libkeysafe tools')
 
     for fil in ['keysafe', 'ksed']:
-        bld(features='subst',
+        bld(
+                features='subst',
                 source=fil+'.in',
                 target=fil,
                 chmod=0755,
                 dict={
                     'KEYSAFE_PY_PATH' : 'pypath',
                     'KEYSAFE_GLADE_PATH' : 'gladepath',
-                    'KEYSAFE_BIN_PATH' : 'binpath'
-                    })
+                    'KEYSAFE_BIN_PATH' : 'binpath',
+                    },
+                )
 
 # vim: set ft=python :
