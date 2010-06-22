@@ -1,0 +1,19 @@
+def build(bld):
+    bld(
+            features='subst',
+            source='__init__.py.in',
+            target='__init__.py',
+            dict={
+                'KEYSAFE_PATH' : bld.env.KEYSAFE_PATH,
+                'KEYSAFE_GLADE_PATH' : bld.env.KEYSAFE_GLADE_PATH,
+                'KEYSAFE_BIN_PATH' : bld.env.KEYSAFE_BIN_PATH,
+                },
+            )
+
+    bld(
+            features='py',
+            source=bld.path.ant_glob('*.py') + ' __init__.py',
+            install_path='${KEYSAFE_PY_PATH}',
+            )
+
+# vim: set ft=python :
