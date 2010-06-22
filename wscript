@@ -18,6 +18,9 @@ def configure(conf):
     conf.check_tool('misc')
     conf.check_python_headers()
     conf.check_cfg(package='botan-1.8', args='--cflags --libs', uselib_store='botan')
+    conf.env.KEYSAFE_PY_PATH = '/usr/lib/keysafe'
+    conf.env.KEYSAFE_GLADE_PATH = '/usr/lib/keysafe/gui'
+    conf.env.KEYSAFE_BIN_PATH = '/usr/bin'
 
 def build(bld):
     bld.add_subdirs('src gnome libkeysafe tools')
@@ -29,9 +32,9 @@ def build(bld):
                 target=fil,
                 chmod=0755,
                 dict={
-                    'KEYSAFE_PY_PATH' : 'pypath',
-                    'KEYSAFE_GLADE_PATH' : 'gladepath',
-                    'KEYSAFE_BIN_PATH' : 'binpath',
+                    'KEYSAFE_PY_PATH' : bld.env.KEYSAFE_PY_PATH,
+                    'KEYSAFE_GLADE_PATH' : bld.env.KEYSAFE_GLADE_PATH,
+                    'KEYSAFE_BIN_PATH' : bld.env.KEYSAFE_BIN_PATH,
                     },
                 )
 

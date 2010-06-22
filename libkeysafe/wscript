@@ -4,9 +4,9 @@ def build(bld):
             source='__init__.py.in',
             target='__init__.py',
             dict={
-                'KEYSAFE_PY_PATH' : 'pypath',
-                'KEYSAFE_GLADE_PATH' : 'gladepath',
-                'KEYSAFE_BIN_PATH' : 'binpath',
+                'KEYSAFE_PY_PATH' : bld.env.KEYSAFE_PY_PATH,
+                'KEYSAFE_GLADE_PATH' : bld.env.KEYSAFE_GLADE_PATH,
+                'KEYSAFE_BIN_PATH' : bld.env.KEYSAFE_BIN_PATH,
                 },
             )
 
