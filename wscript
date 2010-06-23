@@ -8,13 +8,11 @@ import os.path
 
 def set_options(opt):
     opt.tool_options('compiler_cxx')
-    opt.tool_options('boost')
     opt.tool_options('python')
     opt.tool_options('misc')
 
 def configure(conf):
     conf.check_tool('compiler_cxx')
-    conf.check_tool('boost')
     conf.check_tool('python')
     conf.check_tool('misc')
     conf.check_tool('gnome')
