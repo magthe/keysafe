@@ -26,7 +26,7 @@ def configure(conf):
     conf.env.KEYSAFE_GNOME_SCHEMA_PATH = os.path.join(conf.env.PREFIX, 'etc', 'gconf', 'schemas')
 
 def build(bld):
-    bld.add_subdirs('src gnome libkeysafe tools')
+    bld.add_subdirs('src gnome libkeysafe tools gui')
 
     for fil in ['keysafe', 'ksed']:
         bld(

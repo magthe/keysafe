@@ -1,0 +1,4 @@
+def build(bld):
+    bld.install_files('${KEYSAFE_GLADE_PATH}', ['keysafe.glade', 'ksed.glade'])
+
+# vim: set ft=python :
