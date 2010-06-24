@@ -1,12 +1,11 @@
 def build(bld):
-    o = bld(
+    bld(
             features='cxx cshlib pyext',
             source='cryptobotan.cc  crypto.cc',
             target='cryptobotan',
             uselib='botan',
             install_path='${KEYSAFE_PY_PATH}',
+            lib='boost_python',
             )
-    # wow, this is ugly, but boost is broken!
-    o.env.LINKFLAGS = o.env.LINKFLAGS + ['-lboost_python']
 
 # vim: set ft=python :
