@@ -7,6 +7,9 @@ out = '_build'
 boost_check_fragment = '''
 #include <boost/python.hpp>
 using namespace boost::python;
+char const* greet() { return "hello, world"; }
+BOOST_PYTHON_MODULE(hello_ext)
+{ using namespace boost::python; def("greet", greet); }
 int main() { return 0; }
 '''
 
@@ -26,9 +29,10 @@ def configure(conf):
     conf.check_cfg(package='botan-1.8', args='--cflags --libs', uselib_store='botan')
     conf.check_cxx(
             fragment=boost_check_fragment,
-            features='cxx pyext',
+            features='cxx cprogram pyext',
             mandatory=True,
             msg='Checking for Boost::Python',
+            lib='boost_python',
             )
 
     conf.env.KEYSAFE_PATH = os.path.join(conf.env.PREFIX, 'lib', 'keysafe')
