@@ -15,12 +15,12 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import safe
-from libkeysafe.cryptobotan import Crypto
+from libkeysafe.cryptobotan import PyCrypto
 
 _KNOWN_STR = "keysafe2"
 
 def encrypt(plain_text, passwd):
-    c = Crypto(passwd)
+    c = PyCrypto(passwd)
     s, ct = c.encrypt(plain_text + _KNOWN_STR)
     return (s + ct).encode('base64')
 
@@ -30,7 +30,7 @@ def decrypt(b64cipher_text, passwd):
 
     ct0 = b64cipher_text.decode('base64')
     s, ct = ct0[:8], ct0[8:]
-    c = Crypto(passwd)
+    c = PyCrypto(passwd)
     fpt = c.decrypt(s, ct)
     if not _good_decipher(fpt): raise safe.BadPwdException()
     return fpt[:-len(_KNOWN_STR)]

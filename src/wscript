@@ -1,11 +1,21 @@
+import TaskGen
+
+TaskGen.declare_chain(
+        name='cython',
+        rule='${CYTHON} --cplus -o ${TGT} ${SRC}',
+        ext_in='.pyx',
+        ext_out='.cxx',
+        reentrant=True,
+        )
+
 def build(bld):
     bld(
             features='cxx cshlib pyext',
-            source='cryptobotan.cc  crypto.cc',
+            source='cryptobotan.pyx  crypto.cc',
             target='cryptobotan',
             uselib='botan',
             install_path='${KEYSAFE_PY_PATH}',
-            lib='boost_python',
+            includes='.',
             )
 
 # vim: set ft=python :
